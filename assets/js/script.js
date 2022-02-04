@@ -51,11 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         getHtml("./");
     });
   
-
-    page("/blog", function () {
-      getHtmlBlog("/blog/");
-    });
-  
     page("/portfolio", function () {
       getHtmlPortfolio();
     });
@@ -164,75 +159,7 @@ document.addEventListener("DOMContentLoaded", function () {
       );
     }
   
-    
-    /*=================
-            BLOG 
-    ===================*/
-    function getHtmlBlog(e) {
-      document_area_load.innerHTML = loaderhtml;
-      var http = new XMLHttpRequest();
-  
-      http.onreadystatechange = function () {
-        if (http.readyState == 4 && http.status == 200) {
-          body_bg.className = 'nav-item-bg-blog';
-          document_area_load.innerHTML =  setHtml(http.responseText); 
-          BlogComponent();
-        }
-      };
-      
-      http.open("GET", e, true);
-      http.send();
-    };
-    
-  
-    var BlogComponent = function () {
-      var url_api = "https://www.googleapis.com/blogger/v3/blogs/"
-      + "495127046846381233"
-      + "/posts?fields="
-      + "items(title,content,updated,url,author(displayName),replies(totalItems))"
-      + "&key="
-      + "AIzaSyDolWqUukODwRYvdrUD6MRpAwRCvWhItl4";
-  
-      var xhr_blog = new XMLHttpRequest();
-  
-      xhr_blog.onreadystatechange = function () {
-        if (xhr_blog.readyState == 4 && xhr_blog.status == 200) {
-          var posts = JSON.parse(xhr_blog.response).items;
-          posts.forEach(function (post) {
-            itemsBlog(post);
-          })
-        }
-      };
-  
-      xhr_blog.open("GET", url_api, true);
-      xhr_blog.send();
-    }
-  
-    var itemsBlog = function (e) {
-      var postArea = document.querySelector('.posts');
-      var img = e.content.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i) != null ? e.content.match(/([a-z\-_0-9\/\:\.]*\.(jpg|jpeg|png|gif))/i)[0] : 'https://i.ytimg.com/vi/dIiwFzFvsmw/0.jpg';
-      var desc = e.content.replace(/<[^>]*>?/g, '').substr(0, 190);
-      var date = e.updated.substr(0, 10);
-      try {
-        html_item = '<a href=' + e.url + ' target="_blank" class="item wow fadeInDown">'
-        + '<span class="title-image" style="background: url(' + img + ') center/cover no-repeat #441e53;"><span class="item-category"><i class="icon-document-alt-stroke"></i></span></span>'
-        + '<span class="item-content">'
-        + '<div class="post-meta">'
-        + '<span> <i class="icon-clock"></i> - ' + date + '</span> / '
-        + '<span><i class="icon-user"></i> - ' + e.author.displayName + '</span>'
-        + '<span class="right-comment"><i class="icon-bubble"></i> - ' + e.replies.totalItems + ' Comments</span></div>'
-        + '<h5 class="item-title">' + e.title + '</h5>'
-        + '<p class="item-desc"> ' + desc + ' ...</p>'
-        + '<span class="more-info">abrir enlace : <i class="icon-arrow-right"></i></span>'
-        + '</a>';
-      postArea.innerHTML += html_item;
-      } catch (error) {
-        alert('api blogger data not found =(');
-      }
-  
-    };
-  
-  
+
     /*======================
              CONTACT 
     ========================*/
@@ -358,7 +285,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function contactSend(){
       var http  = new XMLHttpRequest();
       var form = document.getElementsByClassName("form-contact");
-      var url   = "https://script.google.com/macros/s/AKfycby9J77Fgq4JJDtGKaqD4Z2bHmpTCibsC2uidXJpU_WGx7DIe_E8/exec";
+      var url   = "https://send.pageclip.co/6jC2VZS2zbYoNpZyRHg1WKVk0Y6qHqLc/contacto";
       var params = "";
   
         for(var i = 0;  i < form[0].length; i++){ 
